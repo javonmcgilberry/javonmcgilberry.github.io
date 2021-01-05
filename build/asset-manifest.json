@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/javonm-personal/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/javonm-personal/static/js/main.c345c201.chunk.js",
+    "main.js.map": "/javonm-personal/static/js/main.c345c201.chunk.js.map",
+    "runtime-main.js": "/javonm-personal/static/js/runtime-main.e3a6ad3a.js",
+    "runtime-main.js.map": "/javonm-personal/static/js/runtime-main.e3a6ad3a.js.map",
+    "static/js/2.0a260224.chunk.js": "/javonm-personal/static/js/2.0a260224.chunk.js",
+    "static/js/2.0a260224.chunk.js.map": "/javonm-personal/static/js/2.0a260224.chunk.js.map",
+    "static/js/3.6401f0d2.chunk.js": "/javonm-personal/static/js/3.6401f0d2.chunk.js",
+    "static/js/3.6401f0d2.chunk.js.map": "/javonm-personal/static/js/3.6401f0d2.chunk.js.map",
+    "index.html": "/javonm-personal/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/javonm-personal/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.0a260224.chunk.js.LICENSE.txt": "/javonm-personal/static/js/2.0a260224.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/javonm-personal/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e3a6ad3a.js",
+    "static/js/2.0a260224.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.c345c201.chunk.js"
+  ]
+}
