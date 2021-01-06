@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.8c8b27cf.chunk.css",
+    "main.css": "/static/css/main.aa684a5e.chunk.css",
     "main.js": "/static/js/main.c345c201.chunk.js",
     "main.js.map": "/static/js/main.c345c201.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.de3dce42.js",
@@ -10,14 +10,15 @@
     "static/js/3.6401f0d2.chunk.js": "/static/js/3.6401f0d2.chunk.js",
     "static/js/3.6401f0d2.chunk.js.map": "/static/js/3.6401f0d2.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/static/css/main.8c8b27cf.chunk.css.map",
+    "static/css/main.aa684a5e.chunk.css.map": "/static/css/main.aa684a5e.chunk.css.map",
     "static/js/2.0a260224.chunk.js.LICENSE.txt": "/static/js/2.0a260224.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/the-huntsman.398525e8.otf",
     "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.de3dce42.js",
     "static/js/2.0a260224.chunk.js",
-    "static/css/main.8c8b27cf.chunk.css",
+    "static/css/main.aa684a5e.chunk.css",
     "static/js/main.c345c201.chunk.js"
   ]
 }
