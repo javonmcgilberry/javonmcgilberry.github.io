@@ -1,4 +1,4 @@
-/* Generated on: Wed Jan 06 2021 21:30:32 GMT+0000 (Coordinated Universal Time) */
+/* Generated on: Wed Jan 06 2021 22:11:28 GMT+0000 (Coordinated Universal Time) */
 /* ==========================================================================
    normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css 
    ========================================================================== */
@@ -1476,6 +1476,14 @@
        justify-content: center;
      }
    
+     .about-paragraph {
+       font-size: 10px;
+     }
+   
+     .about-paragraph.bottom-margin {
+       font-size: 10px;
+     }
+   
      .about-me-container {
        margin-top: 75px;
      }
@@ -1519,6 +1527,14 @@
        font-size: 5vw;
      }
    
+     .info-text {
+       font-size: 10px;
+     }
+   
+     .info-date {
+       font-size: 10px;
+     }
+   
      .connect-title {
        font-size: 7.5vw;
      }
@@ -1530,10 +1546,10 @@
      .nav-link {
        padding-right: 10px;
        padding-left: 10px;
-       -webkit-box-flex: 1;
-       -webkit-flex: 1;
-       -ms-flex: 1;
-       flex: 1;
+       -webkit-box-flex: 0;
+       -webkit-flex: 0 auto;
+       -ms-flex: 0 auto;
+       flex: 0 auto;
        font-size: 13px;
      }
    
