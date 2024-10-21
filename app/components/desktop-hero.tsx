@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { HeroImage } from "./hero-image";
+import { Tooltip } from "./tooltip";
 
 const toggleElementOpacity = (
   element: HTMLElement | null,
@@ -16,9 +17,11 @@ export default function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const heroImageRef = useRef<HTMLDivElement | null>(null);
   const textRef = useRef<HTMLHeadingElement | null>(null);
-  const messageRef = useRef<HTMLDivElement | null>(null);
+
   const [isDragging, setIsDragging] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
   const toggleVideoState = (isEntering: boolean) => {
     toggleElementOpacity(videoRef.current, isEntering);
@@ -31,8 +34,7 @@ export default function Hero() {
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!heroImageRef.current || !textRef.current || !messageRef.current)
-      return;
+    if (!heroImageRef.current || !textRef.current) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;
@@ -47,15 +49,14 @@ export default function Hero() {
       textRef.current.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
     }
 
-    // Position the message near the cursor
-    messageRef.current.style.left = `${e.clientX + 20}px`;
-    messageRef.current.style.top = `${e.clientY + 20}px`;
+    // Update tooltip position
+    setTooltipPos({ x: e.clientX + 20, y: e.clientY + 20 });
   };
 
   const handleMouseDown = () => {
     setIsDragging(true);
     toggleVideoState(true);
-    toggleElementOpacity(messageRef.current, false);
+    setIsTooltipVisible(false);
   };
 
   const handleMouseUp = () => {
@@ -68,28 +69,28 @@ export default function Hero() {
       textRef.current.style.transform = "translate(0, 0)";
     }
     if (isHovering) {
-      toggleElementOpacity(messageRef.current, true);
+      setIsTooltipVisible(true);
     }
   };
 
   const handleMouseEnter = () => {
     setIsHovering(true);
     if (!isDragging) {
-      toggleElementOpacity(messageRef.current, true);
+      setIsTooltipVisible(true);
     }
   };
 
   const handleMouseLeave = () => {
     setIsHovering(false);
     handleMouseUp();
-    toggleElementOpacity(messageRef.current, false);
+    setIsTooltipVisible(false);
   };
 
   return (
-    <>
+    <div className="relative">
       <div className="container mx-auto">
         <div
-          className="hero-sectionrelative grid grid-cols-1 gap-8 md:grid-cols-2"
+          className="hero-section relative grid grid-cols-1 gap-8 md:grid-cols-2"
           onMouseMove={handleMouseMove}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
@@ -98,7 +99,7 @@ export default function Hero() {
         >
           <div
             ref={heroImageRef}
-            className="relative z-0 w-full overflow-hidden rounded-full transition-transform duration-300 ease-out"
+            className="relative z-0 w-full select-none overflow-hidden rounded-full transition-transform duration-300 ease-out"
           >
             <HeroImage
               initialImage="/hero-1.jpg"
@@ -118,24 +119,20 @@ export default function Hero() {
           <div className="relative z-10 flex h-full flex-col justify-center">
             <h1
               ref={textRef}
-              className="flex h-full w-full cursor-move select-none items-center text-6xl font-semi-bold leading-none text-black transition-transform duration-300 ease-out sm:text-7xl"
+              className="flex h-full w-full cursor-move select-none items-center text-6xl font-semibold leading-none text-black transition-transform duration-300 ease-out sm:text-7xl"
             >
-              <span className="mix-blend-difference">
-                Software
-                <br />
-                Engineer
-              </span>
+              Software
+              <br />
+              Engineer
             </h1>
           </div>
         </div>
       </div>
-      <div
-        ref={messageRef}
-        className="pointer-events-none fixed absolute whitespace-nowrap rounded-full bg-black px-3 py-1 text-sm text-white opacity-0 transition-opacity duration-300"
-        style={{ zIndex: 1000 }}
-      >
-        Pull harder, I'm camera shy!
-      </div>
-    </>
+      <Tooltip
+        position={tooltipPos}
+        isVisible={isTooltipVisible}
+        message="Pull harder, I'm camera shy!"
+      />
+    </div>
   );
 }

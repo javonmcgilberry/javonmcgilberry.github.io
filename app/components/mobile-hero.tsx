@@ -83,7 +83,7 @@ export default function MobileHero() {
           />
           {showDragIndicator && (
             <div className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-white">
-              Poke me, I'm camera shy!
+              Poke me, I&apos;m camera shy!
             </div>
           )}
         </div>

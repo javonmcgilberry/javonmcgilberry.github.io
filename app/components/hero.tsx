@@ -9,11 +9,17 @@ export default function Hero() {
 
   useEffect(() => {
     const checkMobile = () => {
-      const userAgent =
-        navigator.userAgent || navigator.vendor || (window as any).opera;
+      const userAgent = navigator.userAgent.toLowerCase();
       const mobileRegex =
-        /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
-      setIsMobile(mobileRegex.test(userAgent.toLowerCase()));
+        /android|webos|iphone|ipod|blackberry|iemobile|opera mini/i;
+      const tabletRegex =
+        /ipad|android(?!.*mobile)|tablet|kindle|playbook|silk/i;
+
+      const isMobileDevice = mobileRegex.test(userAgent);
+      const isTablet = tabletRegex.test(userAgent);
+      const isPortrait = window.innerHeight > window.innerWidth;
+
+      setIsMobile(isMobileDevice || (isTablet && isPortrait));
     };
 
     checkMobile();
