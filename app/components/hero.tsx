@@ -6,6 +6,7 @@ import { HeroImage } from "./hero-image";
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const heroImageRef = useRef<HTMLDivElement | null>(null);
+  const textRef = useRef<HTMLHeadingElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   const toggleVideoState = (isEntering: boolean) => {
@@ -20,36 +21,46 @@ export default function Hero() {
     }
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLHeadingElement>) => {
-    if (!heroImageRef.current || !isDragging) return;
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!heroImageRef.current || !textRef.current || !isDragging) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
 
-    const maxMove = 50; // Maximum pixels to move
+    const maxMove = 200; // Maximum pixels to move
     const moveX = (x - 0.5) * maxMove * 2;
     const moveY = (y - 0.5) * maxMove * 2;
 
     heroImageRef.current.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    textRef.current.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
   };
 
-  const handleMouseEnter = () => {
+  const handleMouseDown = () => {
     setIsDragging(true);
     toggleVideoState(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseUp = () => {
     setIsDragging(false);
     toggleVideoState(false);
     if (heroImageRef.current) {
       heroImageRef.current.style.transform = "translate(0, 0)";
     }
+    if (textRef.current) {
+      textRef.current.style.transform = "translate(0, 0)";
+    }
   };
 
   return (
     <section className="relative">
-      <div className="container mx-auto">
+      <div
+        className="container mx-auto cursor-move"
+        onMouseMove={handleMouseMove}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      >
         <div className="hero-section fade-in-up relative grid grid-cols-1 gap-4 md:grid-cols-2">
           <div
             ref={heroImageRef}
@@ -70,14 +81,10 @@ export default function Hero() {
               }
             />
           </div>
-          <div
-            className="relative z-10 flex h-full flex-col justify-center"
-            onMouseMove={handleMouseMove}
-          >
+          <div className="relative z-10 flex h-full flex-col justify-center">
             <h1
-              className="flex h-full w-full cursor-move items-center text-7xl font-semi-bold leading-none"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              ref={textRef}
+              className="flex h-full w-full select-none items-center text-7xl font-semi-bold leading-none text-black transition-transform duration-300 ease-out"
             >
               <span className="mix-blend-difference">
                 Software
