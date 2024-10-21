@@ -23,7 +23,7 @@ export default function Contact() {
           <div className="block-80-width">
             <div className="flex items-center gap-4">
               <Image
-                src="/javonmcgilberry.github.io/full-ligature.png"
+                src="/full-ligature.png"
                 alt="Profile"
                 className="h-24 w-24"
                 width={100}
@@ -70,8 +70,8 @@ export default function Contact() {
                   (View this site on GitHub!)
                 </a>
               </div>
-              <div className="text-sm text-gray-500">©2024</div>
             </div>
+            <div className="self-end text-sm text-gray-500">©2024</div>
           </div>
         </div>
       </div>

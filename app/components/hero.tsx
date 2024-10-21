@@ -20,7 +20,7 @@ export default function Hero() {
 
   return (
     <section>
-      <div className="mx-auto lg:container">
+      <div className="container mx-auto">
         <div className="hero-section fade-in-up grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="relative w-full overflow-hidden rounded-full">
             <HeroImage

@@ -7,7 +7,7 @@ export default function Header() {
         <div className="flex flex-col items-center sm:flex-row">
           <div className="mb-4 flex w-full sm:mb-0 sm:w-1/2 sm:justify-start">
             <Image
-              src="/javonmcgilberry.github.io/ligature.png"
+              src="/ligature.png"
               alt="Javon McGilberry Ligature Logo"
               width={100}
               height={100}
