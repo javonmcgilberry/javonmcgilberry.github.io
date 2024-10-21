@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AnimationInitializer from "./components/animation-initializer";
-import { inter } from "./fonts";
+import { interTight } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans`}>
+      <body className={`${interTight.variable} font-sans`}>
         <AnimationInitializer />
         {children}
       </body>

@@ -20,22 +20,22 @@ export default function Hero() {
   };
   return (
     <section>
-      <div className="lg:container mx-auto p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 hero-section fade-in-up">
+      <div className="mx-auto lg:container">
+        <div className="hero-section fade-in-up grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="relative w-full overflow-hidden rounded-full">
             <Image
               src="/hero-1.jpg"
               alt="Hero image 1"
               width={1000}
               height={1000}
-              className="w-full h-auto"
+              className="h-auto w-full"
             />
             <Image
               src="/hero-2.jpg"
               alt="Hero image 2"
               width={1000}
               height={1000}
-              className="absolute top-0 right-0 w-full h-auto opacity-0 animate-fade-in"
+              className="absolute right-0 top-0 h-auto w-full animate-fade-in opacity-0"
             />
             <video
               ref={videoRef}
@@ -43,7 +43,7 @@ export default function Hero() {
               loop
               muted
               playsInline
-              className={`absolute top-0 right-0 w-full h-auto transition-opacity duration-500 ${
+              className={`absolute right-0 top-0 h-auto w-full transition-opacity duration-500 ${
                 isHovered ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -51,7 +51,7 @@ export default function Hero() {
 
           <div className="flex flex-col justify-center">
             <h1
-              className="text-6xl font-bold leading-tight"
+              className="text-7xl font-semi-bold leading-none"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >

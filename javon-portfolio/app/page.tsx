@@ -1,5 +1,8 @@
 import Header from "./components/header";
-
+import Hero from "./components/hero";
+import Details from "./components/details";
+import Divider from "./components/divider";
+import Contact from "./components/contact";
 export const metadata = {
   title:
     "Javon McGilberry | Senior Full Stack Software Engineer in Atlanta, GA",
@@ -9,5 +12,14 @@ export const metadata = {
 };
 
 export default function Home() {
-  return <Header />;
+  return (
+    <div>
+      <Header />
+      <Hero />
+      <Divider />
+      <Details />
+      <Divider />
+      <Contact />
+    </div>
+  );
 }

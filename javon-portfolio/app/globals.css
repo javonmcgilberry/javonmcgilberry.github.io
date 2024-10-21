@@ -17,7 +17,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-inter);
+  font-family: var(--font-inter-tight);
 }
 
 @layer utilities {
@@ -27,11 +27,41 @@ body {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
     opacity: 0.5;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: 1fr;
+  grid-column-gap: 16px;
+  grid-row-gap: 40px;
+  min-height: 100px;
+}
+
+@media screen and (max-width: 991px) {
+  .container {
+    grid-row-gap: 56px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    padding-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .container {
+    grid-row-gap: 40px;
   }
 }
 
@@ -42,14 +72,17 @@ body {
 .fade-in-up {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
 }
-
 
 .fade-in-down {
   opacity: 0;
   transform: translateY(-20px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
+  transition:
+    opacity 1s ease-out,
+    transform 1s ease-out;
 }
 
 .fade-in-up.active,

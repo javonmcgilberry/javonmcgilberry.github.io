@@ -2,10 +2,10 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="bg-white shadow-sm fade-in-down">
-      <div className="lg:container mx-auto px-4 py-4">
-        <div className="flex flex-col sm:flex-row items-center">
-          <div className="w-full sm:w-1/2 flex justify-center sm:justify-start mb-4 sm:mb-0">
+    <header className="bg-white">
+      <div className="fade-in-down container mx-auto py-[24px]">
+        <div className="flex flex-col items-center sm:flex-row">
+          <div className="mb-4 flex w-full sm:mb-0 sm:w-1/2 sm:justify-start">
             <Image
               src="/ligature.png"
               alt="Javon McGilberry Ligature Logo"
@@ -13,13 +13,13 @@ export default function Header() {
               height={100}
             />
           </div>
-          <div className="w-full sm:w-1/2 flex justify-between items-center">
-            <div className="hidden sm:block text-sm text-gray-600">
+          <div className="flex w-full items-center justify-between sm:w-1/2">
+            <div className="hidden text-sm text-gray-600 sm:block">
               Based in Atlanta, Georgia - US
             </div>
-            <div className="hidden md:flex items-center border border-[#d9d9d9] rounded-full px-3 py-2 gap-2">
-              <div className="w-2 h-2 bg-[#2d9c4c] rounded-full animate-pulse"></div>
-              <div className="text-xs text-[#262626] font-['Inter_Tight',sans-serif] leading-[130%]">
+            <div className="hidden items-center gap-2 rounded-full border border-[#d9d9d9] px-3 py-2 md:flex">
+              <div className="h-2 w-2 animate-pulse rounded-full bg-[#2d9c4c]"></div>
+              <div className="font-['Inter_Tight',sans-serif] text-xs leading-[130%] text-[#262626]">
                 Available for Freelance
               </div>
             </div>
