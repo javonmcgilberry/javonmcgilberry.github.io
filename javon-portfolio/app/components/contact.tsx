@@ -60,13 +60,17 @@ export default function Contact() {
             </div>
             <div className="mt-8 flex items-center justify-between">
               <div className="flex gap-4">
-                {/* Uncomment and adjust these links as needed */}
-                {/* <a href="/info/changelog" className="footer-link">Changelog</a>
-                  <a href="/info/style-guide" className="footer-link">Style Guide</a>
-                  <a href="/info/licenses" className="footer-link">Licenses</a>
-                  <a href="http://webflow.com" target="_blank" rel="noopener noreferrer" className="footer-link">Webflow</a> */}
+                Developed with Next.js and TailwindCSS
+                <a
+                  href="https://github.com/javonmcgilberry/javonmcgilberry.github.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-link hover:text-gray-600"
+                >
+                  (View this site on GitHub!)
+                </a>
               </div>
-              <div className="text-sm text-gray-500">©2023</div>
+              <div className="text-sm text-gray-500">©2024</div>
             </div>
           </div>
         </div>

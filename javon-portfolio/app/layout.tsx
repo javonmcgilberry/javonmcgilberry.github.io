@@ -15,6 +15,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="/favicon.ico" sizes="any" />
+      <link
+        rel="icon"
+        href="/icon?<generated>"
+        type="image/<generated>"
+        sizes="<generated>"
+      />
+      <link
+        rel="apple-touch-icon"
+        href="/apple-icon?<generated>"
+        type="image/<generated>"
+        sizes="<generated>"
+      />
       <body className={`${interTight.variable} font-sans`}>
         <AnimationInitializer />
         {children}
