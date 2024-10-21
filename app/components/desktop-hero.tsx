@@ -99,7 +99,7 @@ export default function Hero() {
         >
           <div
             ref={heroImageRef}
-            className="relative z-0 w-full select-none overflow-hidden rounded-full transition-transform duration-300 ease-out"
+            className="relative z-0 w-full select-none overflow-hidden rounded-[100%] transition-transform duration-300 ease-out"
           >
             <HeroImage
               initialImage="/hero-1.jpg"
@@ -119,7 +119,7 @@ export default function Hero() {
           <div className="relative z-10 flex h-full flex-col justify-center">
             <h1
               ref={textRef}
-              className="flex h-full w-full cursor-move select-none items-center text-6xl font-semibold leading-none text-black transition-transform duration-300 ease-out sm:text-7xl"
+              className="flex h-full w-full cursor-move select-none items-center text-5xl font-semibold leading-none text-black transition-transform duration-300 ease-out"
             >
               Software
               <br />
