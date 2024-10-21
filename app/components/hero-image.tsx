@@ -21,14 +21,14 @@ export function HeroImage({
   return (
     <>
       <Image
-        src={initialImage}
+        src={`/javonmcgilberry.github.io/${initialImage}`}
         alt="Initial image"
         width={1000}
         height={1000}
         className="h-auto w-full"
       />
       <Image
-        src={onLoadImage}
+        src={`/javonmcgilberry.github.io/${onLoadImage}`}
         ref={imageRef}
         alt="On load image"
         width={1000}

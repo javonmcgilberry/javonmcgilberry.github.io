@@ -23,7 +23,7 @@ export default function Contact() {
           <div className="block-80-width">
             <div className="flex items-center gap-4">
               <Image
-                src="/full-ligature.png"
+                src="/javonmcgilberry.github.io/full-ligature.png"
                 alt="Profile"
                 className="h-24 w-24"
                 width={100}
