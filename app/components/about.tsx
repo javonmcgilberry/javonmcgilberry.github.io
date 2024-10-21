@@ -38,7 +38,7 @@ export default function About() {
         <p>Check out my work history below!</p>
         <div className="mt-6">
           <a
-            href="/javon_mcgilberry_resume.pdf"
+            href="/javon_mcgilberry_full_resume.pdf"
             className="inline-block rounded-full border border-[#d9d9d9] bg-white px-4 py-3 font-['Inter_Tight',sans-serif] text-base font-normal leading-[120%] text-[#262626] transition-colors hover:bg-gray-50"
           >
             View Resume

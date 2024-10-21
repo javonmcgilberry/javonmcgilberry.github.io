@@ -26,6 +26,7 @@ export function HeroImage({
         width={1000}
         height={1000}
         className="h-auto w-full"
+        priority
       />
       <Image
         src={`${onLoadImage}`}
@@ -36,6 +37,7 @@ export function HeroImage({
         className={`absolute right-0 top-0 h-auto w-full transition-opacity delay-[1000ms] duration-[2000ms] ease-out ${
           isElementVisible ? "opacity-100" : "opacity-0"
         }`}
+        priority
       />
       {overlayVideo}
     </>

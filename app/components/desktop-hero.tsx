@@ -90,7 +90,7 @@ export default function Hero() {
     <div className="relative">
       <div className="container mx-auto">
         <div
-          className="hero-section relative grid grid-cols-1 gap-8 md:grid-cols-2"
+          className="hero-section relative grid cursor-move select-none grid-cols-1 gap-8 md:grid-cols-2"
           onMouseMove={handleMouseMove}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
@@ -99,7 +99,7 @@ export default function Hero() {
         >
           <div
             ref={heroImageRef}
-            className="relative z-0 w-full select-none overflow-hidden rounded-[100%] transition-transform duration-300 ease-out"
+            className="relative z-0 aspect-square w-full select-none overflow-hidden rounded-[100%] transition-transform duration-300 ease-out"
           >
             <HeroImage
               initialImage="/hero-1.jpg"
@@ -119,7 +119,7 @@ export default function Hero() {
           <div className="relative z-10 flex h-full flex-col justify-center">
             <h1
               ref={textRef}
-              className="flex h-full w-full cursor-move select-none items-center text-5xl font-semibold leading-none text-black transition-transform duration-300 ease-out"
+              className="flex h-full w-full select-none items-center text-5xl font-semibold leading-none text-black transition-transform duration-300 ease-out"
             >
               Software
               <br />

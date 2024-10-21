@@ -1,14 +1,16 @@
 interface Experience {
   title: string;
   company: string;
-  period: string;
+  period:
+    | `${string} ${number} - ${string} ${number}`
+    | `${string} ${number} - Present`;
 }
 
 const experiences: Experience[] = [
   {
     title: "Senior Frontend Software Engineer",
     company: "Spotify (Contract)",
-    period: "July 2024 - Nov 2024",
+    period: "July 2024 - Oct 2024",
   },
   {
     title: "Senior Fullstack Software Engineer",

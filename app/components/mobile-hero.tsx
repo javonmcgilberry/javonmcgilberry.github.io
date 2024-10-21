@@ -62,7 +62,7 @@ export default function MobileHero() {
       <div className="hero-section relative grid grid-cols-1 gap-4">
         <div
           ref={heroImageRef}
-          className="relative z-0 w-full overflow-hidden rounded-full transition-transform duration-300 ease-out"
+          className="relative z-0 aspect-square w-full select-none overflow-hidden rounded-[100%] transition-transform duration-300 ease-out"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
