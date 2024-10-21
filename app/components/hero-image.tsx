@@ -33,8 +33,8 @@ export function HeroImage({
         alt="On load image"
         width={1000}
         height={1000}
-        className={`absolute right-0 top-0 h-auto w-full transition-opacity ${
-          isElementVisible ? "animate-fade-in" : "animate-fade-out"
+        className={`absolute right-0 top-0 h-auto w-full transition-opacity delay-[1000ms] duration-[2000ms] ease-out ${
+          isElementVisible ? "opacity-100" : "opacity-0"
         }`}
       />
       {overlayVideo}
