@@ -3,18 +3,10 @@
 import { useRef, useState } from "react";
 import { HeroImage } from "./hero-image";
 import { Tooltip } from "./tooltip";
-
-const toggleElementOpacity = (
-  element: HTMLElement | null,
-  isVisible: boolean,
-) => {
-  if (!element) return;
-  element.classList.toggle("opacity-100", isVisible);
-  element.classList.toggle("opacity-0", !isVisible);
-};
+import { useVideoState } from "@/utils/use-video-state";
 
 export default function Hero() {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const { videoRef, toggleVideoState } = useVideoState();
   const heroImageRef = useRef<HTMLDivElement | null>(null);
   const textRef = useRef<HTMLHeadingElement | null>(null);
 
@@ -22,16 +14,6 @@ export default function Hero() {
   const [isHovering, setIsHovering] = useState(false);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-
-  const toggleVideoState = (isEntering: boolean) => {
-    toggleElementOpacity(videoRef.current, isEntering);
-    if (isEntering) {
-      videoRef.current?.play();
-    } else {
-      videoRef.current?.pause();
-      if (videoRef.current) videoRef.current.currentTime = 0;
-    }
-  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!heroImageRef.current || !textRef.current) return;

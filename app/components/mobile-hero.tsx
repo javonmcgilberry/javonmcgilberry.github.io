@@ -2,27 +2,16 @@
 
 import { useRef, useState, TouchEvent } from "react";
 import { HeroImage } from "./hero-image";
+import { useVideoState } from "@/utils/use-video-state";
 
 export default function MobileHero() {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const { videoRef, toggleVideoState } = useVideoState();
   const heroImageRef = useRef<HTMLDivElement | null>(null);
   const textRef = useRef<HTMLHeadingElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [startY, setStartY] = useState(0);
   const [showDragIndicator, setShowDragIndicator] = useState(true);
-
-  const toggleVideoState = (isPlaying: boolean) => {
-    if (!videoRef.current) return;
-    videoRef.current.classList.toggle("opacity-100", isPlaying);
-    videoRef.current.classList.toggle("opacity-0", !isPlaying);
-    if (isPlaying) {
-      videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  };
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setIsDragging(true);
