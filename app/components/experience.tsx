@@ -10,7 +10,7 @@ const experiences: Experience[] = [
   {
     title: "Senior Frontend Software Engineer",
     company: "Spotify (Contract)",
-    period: "July 2024 - Oct 2024",
+    period: "July 2024 - December 2024",
   },
   {
     title: "Senior Fullstack Software Engineer",
