@@ -14,9 +14,11 @@ export function initAnimations(
     { threshold },
   );
 
-  const elements = animationClasses.flatMap((className) =>
-    Array.from(document.querySelectorAll<HTMLElement>(className)),
-  );
+  const elements = animationClasses
+    .flatMap((className) =>
+      Array.from(document.querySelectorAll<HTMLElement>(className)),
+    )
+    .filter((element) => !element.classList.contains("active"));
 
   elements.forEach((element) => observer.observe(element));
 

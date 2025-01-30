@@ -1,5 +1,7 @@
 import { useRef, useCallback, useEffect } from "react";
 
+// Let's be honest here, I needed some AI support for this one LOL.
+// Absolutely no shame here.
 export function useVideoState() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const reverseIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -11,7 +13,6 @@ export function useVideoState() {
     }
   };
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => clearReverseInterval();
   }, []);
