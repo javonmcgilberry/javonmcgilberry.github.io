@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/app/components/header";
@@ -42,10 +43,17 @@ export async function generateMetadata({
       url: `${siteConfig.url}/blog/${post.slug}`,
       type: "article",
       publishedTime: post.publishedAt,
+      images: [
+        {
+          url: post.heroImage ?? siteConfig.ogImage,
+          alt: post.heroImageAlt ?? post.title,
+        },
+      ],
     },
     twitter: {
       title: `${post.title} | ${siteConfig.name}`,
       description: post.description,
+      images: [post.heroImage ?? siteConfig.ogImage],
     },
   };
 }
@@ -61,11 +69,42 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const allPosts = getAllPosts();
   const currentIndex = allPosts.findIndex((entry) => entry.slug === post.slug);
   const nextPost = allPosts[currentIndex + 1];
+  const articleUrl = `${siteConfig.url}/blog/${post.slug}`;
+  const articleImage = new URL(
+    post.heroImage ?? siteConfig.ogImage,
+    siteConfig.url,
+  ).toString();
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    image: [articleImage],
+    mainEntityOfPage: articleUrl,
+    author: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    publisher: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+  };
 
   return (
     <>
       <Header />
       <main className="container mx-auto pb-16">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(articleJsonLd),
+          }}
+        />
         <article className="mx-auto w-full max-w-[960px]">
           <Link
             href="/blog"
@@ -84,6 +123,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.description}
             </p>
           </header>
+
+          {post.heroImage ? (
+            <figure className="mt-10 overflow-hidden rounded-[28px] border border-[#e5e7eb] bg-[#f5f5f4]">
+              <div className="relative aspect-[16/9] w-full">
+                <Image
+                  src={post.heroImage}
+                  alt={post.heroImageAlt ?? post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 960px"
+                  priority
+                />
+              </div>
+            </figure>
+          ) : null}
 
           <div className="blog-prose mt-10 w-full">{post.content}</div>
         </article>

@@ -15,6 +15,17 @@ export const metadata: Metadata = {
     description: "Thoughts, notes, and occasional essays.",
     url: `${siteConfig.url}/blog`,
     type: "website",
+    images: [
+      {
+        url: siteConfig.ogImage,
+        alt: `${siteConfig.name} blog preview`,
+      },
+    ],
+  },
+  twitter: {
+    title: `Blog | ${siteConfig.name}`,
+    description: "Thoughts, notes, and occasional essays.",
+    images: [siteConfig.ogImage],
   },
 };
 

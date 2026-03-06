@@ -10,6 +10,8 @@ const POSTS_DIRECTORY = path.join(process.cwd(), "content/posts");
 type PostFrontmatter = {
   title: string;
   description: string;
+  heroImage?: string;
+  heroImageAlt?: string;
   publishedAt: string;
 };
 
@@ -87,6 +89,8 @@ export const getAllPosts = cache((): PostSummary[] => {
         slug,
         title: frontmatter.title,
         description: frontmatter.description,
+        heroImage: frontmatter.heroImage,
+        heroImageAlt: frontmatter.heroImageAlt,
         publishedAt: frontmatter.publishedAt,
         readingTime: getReadingTime(content),
       },
@@ -117,6 +121,8 @@ export const getPostBySlug = cache(async (slug: string): Promise<Post | null> =>
     slug,
     title: frontmatter.title,
     description: frontmatter.description,
+    heroImage: frontmatter.heroImage,
+    heroImageAlt: frontmatter.heroImageAlt,
     publishedAt: frontmatter.publishedAt,
     readingTime: getReadingTime(matter(source).content),
     content,
