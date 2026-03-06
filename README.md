@@ -16,6 +16,7 @@ The project is intentionally small, but it gives me room to show responsive layo
 
 - Responsive single-page portfolio experience
 - Interactive hero section with pointer and touch support
+- In-repo MDX blog with statically exported post pages
 - App Router metadata, `robots.txt`, and `sitemap.xml`
 - Static export deployment to GitHub Pages
 
@@ -47,6 +48,22 @@ pnpm dev
 - `pnpm start`: Serve the generated `out/` directory locally
 - `pnpm lint`: Run ESLint with the flat config
 - `pnpm typecheck`: Run TypeScript without emitting files
+
+## Writing Posts
+
+Create new posts in `content/posts` as `.mdx` files with frontmatter:
+
+```mdx
+---
+title: "Post title"
+description: "Short summary for listings and metadata."
+publishedAt: "2026-03-06"
+---
+
+Your post content here.
+```
+
+Each filename becomes the post slug and is exported to `/blog/[slug]`.
 
 ## Deployment
 

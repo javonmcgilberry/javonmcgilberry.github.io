@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -6,37 +7,45 @@ export default function Header() {
       <div className="container mx-auto py-[24px]">
         <div className="flex flex-col items-center sm:flex-row">
           <div className="mb-4 flex w-full sm:mb-0 sm:w-1/2 sm:justify-start">
-            <Image
-              src="/ligature.png"
-              alt=""
-              width={100}
-              height={100}
-              aria-hidden="true"
-              priority
-              sizes="100px"
-            />
+            <Link href="/" aria-label="Go to homepage">
+              <Image
+                src="/ligature.png"
+                alt=""
+                width={100}
+                height={100}
+                aria-hidden="true"
+                priority
+                sizes="100px"
+              />
+            </Link>
             <h1 className="sr-only">
               Javon McGilberry - Senior Full Stack Software Engineer
             </h1>
           </div>
-          <div className="flex w-full items-center justify-between sm:w-1/2">
+          <div className="flex w-full items-center justify-between gap-6 sm:w-1/2">
+            <nav
+              className="flex items-center gap-4 text-sm text-[#4f4f4f]"
+              aria-label="Primary"
+            >
+              <Link
+                href="/"
+                className="transition-colors hover:text-[#111111] focus-visible:text-[#111111]"
+              >
+                Home
+              </Link>
+              <Link
+                href="/blog"
+                className="transition-colors hover:text-[#111111] focus-visible:text-[#111111]"
+              >
+                Blog
+              </Link>
+            </nav>
             <div
-              className="hidden text-sm text-gray-600 sm:block"
+              className="hidden rounded-full border border-[#d9d9d9] px-3 py-2 md:flex"
               aria-label="Location"
             >
-              <span aria-hidden="true">Based in </span>Atlanta, Georgia - US
-            </div>
-            <div
-              className="hidden items-center gap-2 rounded-full border border-[#d9d9d9] px-3 py-2 md:flex"
-              role="status"
-              aria-live="polite"
-            >
-              <div
-                className="h-2 w-2 animate-pulse rounded-full bg-[#2d9c4c]"
-                aria-hidden="true"
-              ></div>
               <div className="font-['Inter_Tight',sans-serif] text-xs leading-[130%] text-[#262626]">
-                Available for Freelance
+                Based in Atlanta, GA
               </div>
             </div>
           </div>

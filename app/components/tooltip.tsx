@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef } from "react";
+import { forwardRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 
 interface TooltipProps {
@@ -10,7 +10,13 @@ interface TooltipProps {
 
 export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
   function Tooltip({ isVisible, message }, ref) {
-    if (typeof document === "undefined") {
+    const isMounted = useSyncExternalStore(
+      () => () => {},
+      () => true,
+      () => false,
+    );
+
+    if (!isMounted) {
       return null;
     }
 

@@ -3,6 +3,7 @@ import Details from "./components/details";
 import Divider from "./components/divider";
 import Header from "./components/header";
 import Hero from "./components/hero";
+import LatestWriting from "./components/latest-writing";
 import Reveal from "./components/reveal";
 
 export default function Home() {
@@ -19,6 +20,12 @@ export default function Home() {
       </Reveal>
       <Reveal direction="down">
         <Details />
+      </Reveal>
+      <Reveal direction="down">
+        <Divider />
+      </Reveal>
+      <Reveal direction="down">
+        <LatestWriting />
       </Reveal>
       <Reveal direction="down">
         <Divider />
