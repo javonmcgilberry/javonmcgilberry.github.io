@@ -1,159 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { HeroImage } from "./hero-image";
 import { Tooltip } from "./tooltip";
-import { useVideoState } from "@/utils/use-video-state";
-
-const DESKTOP_MAX_MOVE = 200;
-const TOUCH_MAX_MOVE = 50;
-const TOOLTIP_OFFSET = 20;
-
-function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max);
-}
+import { useHeroInteraction } from "./use-hero-interaction";
 
 export default function Hero() {
-  const { videoRef, toggleVideoState } = useVideoState();
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const heroImageRef = useRef<HTMLDivElement | null>(null);
-  const textRef = useRef<HTMLHeadingElement | null>(null);
-  const tooltipRef = useRef<HTMLDivElement | null>(null);
-  const startPointRef = useRef({ x: 0, y: 0 });
-  const lastPointerTypeRef = useRef<string>("mouse");
-  const canHoverRef = useRef(false);
-  const isHoveringRef = useRef(false);
-
-  const [isDragging, setIsDragging] = useState(false);
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const [showTouchHint, setShowTouchHint] = useState(true);
-
-  useEffect(() => {
-    canHoverRef.current = window.matchMedia("(hover: hover)").matches;
-  }, []);
-
-  const updateTransforms = (moveX: number, moveY: number) => {
-    if (heroImageRef.current) {
-      heroImageRef.current.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    }
-
-    if (textRef.current) {
-      textRef.current.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
-    }
-  };
-
-  const resetTransforms = () => {
-    updateTransforms(0, 0);
-  };
-
-  const updateTooltipPosition = (clientX: number, clientY: number) => {
-    if (!tooltipRef.current) {
-      return;
-    }
-
-    tooltipRef.current.style.left = `${clientX + TOOLTIP_OFFSET}px`;
-    tooltipRef.current.style.top = `${clientY + TOOLTIP_OFFSET}px`;
-  };
-
-  const finishInteraction = (pointerType: string) => {
-    setIsDragging(false);
-    toggleVideoState(false);
-    resetTransforms();
-    setIsTooltipVisible(
-      pointerType === "mouse" && canHoverRef.current && isHoveringRef.current,
-    );
-  };
-
-  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    lastPointerTypeRef.current = event.pointerType;
-    startPointRef.current = { x: event.clientX, y: event.clientY };
-
-    setIsDragging(true);
-    setIsTooltipVisible(false);
-
-    if (event.pointerType !== "mouse") {
-      setShowTouchHint(false);
-    }
-
-    event.currentTarget.setPointerCapture(event.pointerId);
-    toggleVideoState(true);
-  };
-
-  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    lastPointerTypeRef.current = event.pointerType;
-
-    if (event.pointerType === "mouse" && canHoverRef.current) {
-      updateTooltipPosition(event.clientX, event.clientY);
-    }
-
-    if (!isDragging) {
-      return;
-    }
-
-    if (event.pointerType === "mouse") {
-      const rect = sectionRef.current?.getBoundingClientRect();
-
-      if (!rect) {
-        return;
-      }
-
-      const x = (event.clientX - rect.left) / rect.width;
-      const y = (event.clientY - rect.top) / rect.height;
-      const moveX = (x - 0.5) * DESKTOP_MAX_MOVE * 2;
-      const moveY = (y - 0.5) * DESKTOP_MAX_MOVE * 2;
-
-      updateTransforms(moveX, moveY);
-      return;
-    }
-
-    const moveX = clamp(
-      event.clientX - startPointRef.current.x,
-      -TOUCH_MAX_MOVE,
-      TOUCH_MAX_MOVE,
-    );
-    const moveY = clamp(
-      event.clientY - startPointRef.current.y,
-      -TOUCH_MAX_MOVE,
-      TOUCH_MAX_MOVE,
-    );
-
-    updateTransforms(moveX, moveY);
-  };
-
-  const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-
-    finishInteraction(event.pointerType);
-  };
-
-  const handlePointerEnter = (event: PointerEvent<HTMLDivElement>) => {
-    lastPointerTypeRef.current = event.pointerType;
-    isHoveringRef.current = true;
-
-    if (event.pointerType !== "mouse" || !canHoverRef.current || isDragging) {
-      return;
-    }
-
-    updateTooltipPosition(event.clientX, event.clientY);
-    setIsTooltipVisible(true);
-  };
-
-  const handlePointerLeave = () => {
-    isHoveringRef.current = false;
-
-    if (isDragging) {
-      finishInteraction(lastPointerTypeRef.current);
-      return;
-    }
-
-    setIsTooltipVisible(false);
-  };
-
-  const handlePointerCancel = () => {
-    finishInteraction(lastPointerTypeRef.current);
-  };
+  const {
+    videoRef,
+    sectionRef,
+    heroImageRef,
+    textRef,
+    tooltipRef,
+    isDragging,
+    isTooltipVisible,
+    showTouchHint,
+    handlePointerCancel,
+    handlePointerDown,
+    handlePointerEnter,
+    handlePointerLeave,
+    handlePointerMove,
+    handlePointerUp,
+  } = useHeroInteraction();
 
   return (
     <section className="relative">

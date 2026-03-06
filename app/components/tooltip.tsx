@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef } from "react";
 import { createPortal } from "react-dom";
 
 interface TooltipProps {
@@ -10,13 +10,7 @@ interface TooltipProps {
 
 export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
   function Tooltip({ isVisible, message }, ref) {
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-      setIsMounted(true);
-    }, []);
-
-    if (!isMounted) {
+    if (typeof document === "undefined") {
       return null;
     }
 

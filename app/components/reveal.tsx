@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type PropsWithChildren } from "react";
+import { useEffect, useRef, type PropsWithChildren } from "react";
 
 interface RevealProps extends PropsWithChildren {
   className?: string;
@@ -21,7 +21,9 @@ export default function Reveal({
   rootMargin = "0px 0px -10% 0px",
 }: RevealProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const hiddenClassName =
+    direction === "up" ? "translate-y-5 opacity-0" : "-translate-y-5 opacity-0";
+  const visibleClassName = "translate-y-0 opacity-100";
 
   useEffect(() => {
     const element = containerRef.current;
@@ -30,8 +32,16 @@ export default function Reveal({
       return;
     }
 
+    const hiddenClasses = hiddenClassName.split(" ");
+    const visibleClasses = visibleClassName.split(" ");
+
+    const reveal = () => {
+      element.classList.remove(...hiddenClasses);
+      element.classList.add(...visibleClasses);
+    };
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setIsVisible(true);
+      reveal();
       return;
     }
 
@@ -41,7 +51,7 @@ export default function Reveal({
           return;
         }
 
-        setIsVisible(true);
+        reveal();
         currentObserver.unobserve(entry.target);
       },
       { threshold, rootMargin },
@@ -52,18 +62,14 @@ export default function Reveal({
     return () => {
       observer.disconnect();
     };
-  }, [rootMargin, threshold]);
+  }, [hiddenClassName, rootMargin, threshold, visibleClassName]);
 
   return (
     <div
       ref={containerRef}
       className={cn(
         "transform-gpu transition-all duration-700 ease-out motion-reduce:transform-none motion-reduce:transition-none",
-        isVisible
-          ? "translate-y-0 opacity-100"
-          : direction === "up"
-            ? "translate-y-5 opacity-0"
-            : "-translate-y-5 opacity-0",
+        hiddenClassName,
         className,
       )}
     >

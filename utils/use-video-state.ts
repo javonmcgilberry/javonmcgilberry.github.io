@@ -1,10 +1,13 @@
 import { useEffect, useRef } from "react";
 
+function setVideoOpacity(video: HTMLVideoElement, isVisible: boolean) {
+  video.classList.toggle("opacity-100", isVisible);
+  video.classList.toggle("opacity-0", !isVisible);
+}
+
 export function useVideoState() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const reverseIntervalRef = useRef<ReturnType<typeof window.setInterval> | null>(
-    null,
-  );
+  const reverseIntervalRef = useRef<number | null>(null);
 
   const clearReverseInterval = () => {
     if (!reverseIntervalRef.current) {
@@ -19,12 +22,7 @@ export function useVideoState() {
     return () => clearReverseInterval();
   }, []);
 
-  const playReverse = () => {
-    if (!videoRef.current) {
-      return;
-    }
-
-    const video = videoRef.current;
+  const playReverse = (video: HTMLVideoElement) => {
     const fps = 30;
     const interval = 1000 / fps;
     let currentTime = video.currentTime;
@@ -34,8 +32,7 @@ export function useVideoState() {
     reverseIntervalRef.current = window.setInterval(() => {
       if (currentTime <= 0) {
         clearReverseInterval();
-        video.classList.remove("opacity-100");
-        video.classList.add("opacity-0");
+        setVideoOpacity(video, false);
         return;
       }
 
@@ -45,28 +42,26 @@ export function useVideoState() {
   };
 
   const toggleVideoState = (isPlaying: boolean) => {
-    if (!videoRef.current) {
+    const video = videoRef.current;
+
+    if (!video) {
       return;
     }
-
-    const video = videoRef.current;
 
     clearReverseInterval();
 
     if (isPlaying) {
-      video.classList.remove("opacity-0");
-      video.classList.add("opacity-100");
+      setVideoOpacity(video, true);
       video.currentTime = 0;
       video.playbackRate = 1;
       void video.play().catch(() => {
-        video.classList.remove("opacity-100");
-        video.classList.add("opacity-0");
+        setVideoOpacity(video, false);
       });
       return;
     }
 
     video.pause();
-    playReverse();
+    playReverse(video);
   };
 
   return { videoRef, toggleVideoState };
