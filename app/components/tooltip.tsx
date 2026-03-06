@@ -1,37 +1,43 @@
-// TooltipPortal.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface TooltipProps {
-  position: { x: number; y: number };
   isVisible: boolean;
   message: string;
 }
 
-export function Tooltip({ position, isVisible, message }: TooltipProps) {
-  const [isMounted, setIsMounted] = useState(false);
+export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
+  function Tooltip({ isVisible, message }, ref) {
+    const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    useEffect(() => {
+      setIsMounted(true);
+    }, []);
 
-  if (!isMounted) return null;
+    if (!isMounted) {
+      return null;
+    }
 
-  return createPortal(
-    <div
-      className={`pointer-events-none fixed whitespace-nowrap rounded-full bg-black px-3 py-1 text-sm text-white transition-opacity duration-300 ${
-        isVisible ? "opacity-100" : "opacity-0"
-      }`}
-      style={{
-        zIndex: 1000,
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-      }}
-    >
-      {message}
-    </div>,
-    document.body,
-  );
-}
+    return createPortal(
+      <div
+        ref={ref}
+        aria-hidden="true"
+        className={`pointer-events-none fixed hidden whitespace-nowrap rounded-full bg-black px-3 py-1 text-sm text-white transition-opacity duration-300 md:block ${
+          isVisible ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          zIndex: 1000,
+          left: 0,
+          top: 0,
+        }}
+      >
+        {message}
+      </div>,
+      document.body,
+    );
+  },
+);
+
+Tooltip.displayName = "Tooltip";

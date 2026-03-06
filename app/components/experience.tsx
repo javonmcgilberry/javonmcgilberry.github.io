@@ -8,6 +8,11 @@ interface Experience {
 
 const experiences: Experience[] = [
   {
+    title: "Senior Software Engineer, Frontend",
+    company: "Webflow",
+    period: "March 2025 - Present",
+  },
+  {
     title: "Senior Frontend Software Engineer",
     company: "Spotify (Contract)",
     period: "July 2024 - December 2024",

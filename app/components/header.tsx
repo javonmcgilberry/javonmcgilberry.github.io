@@ -3,15 +3,17 @@ import Image from "next/image";
 export default function Header() {
   return (
     <header className="bg-white" aria-label="Main site header">
-      <div className="fade-in-down container mx-auto py-[24px]">
+      <div className="container mx-auto py-[24px]">
         <div className="flex flex-col items-center sm:flex-row">
           <div className="mb-4 flex w-full sm:mb-0 sm:w-1/2 sm:justify-start">
             <Image
               src="/ligature.png"
-              alt="Javon McGilberry Ligature Logo"
+              alt=""
               width={100}
               height={100}
               aria-hidden="true"
+              priority
+              sizes="100px"
             />
             <h1 className="sr-only">
               Javon McGilberry - Senior Full Stack Software Engineer

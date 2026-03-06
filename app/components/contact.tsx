@@ -1,23 +1,24 @@
 import Image from "next/image";
+import { siteConfig } from "../site-config";
 
 const socialLinks = [
   {
     name: "Instagram",
-    url: "https://www.instagram.com/javon.chy",
+    url: siteConfig.instagramUrl,
   },
   {
     name: "Twitter",
-    url: "https://twitter.com/veezwashere",
+    url: siteConfig.twitterUrl,
   },
   {
     name: "LinkedIn",
-    url: "https://www.linkedin.com/in/javonmcgilberry",
+    url: siteConfig.linkedinUrl,
   },
 ];
 
 export default function Contact() {
   return (
-    <section className="fade-in-down py-16 pt-0">
+    <section className="py-16 pt-0">
       <div className="container mx-auto py-[24px]">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="block-80-width">
@@ -28,6 +29,7 @@ export default function Contact() {
                 className="h-24 w-24"
                 width={100}
                 height={100}
+                sizes="100px"
               />
               <div className="flex flex-col gap-2">
                 {socialLinks.map((link) => (
@@ -51,10 +53,10 @@ export default function Contact() {
               </div>
               <div className="relative inline-block">
                 <a
-                  href="mailto:javon@javonm.com"
+                  href={`mailto:${siteConfig.email}`}
                   className="relative inline-block text-2xl text-gray-600 transition-colors duration-300 after:absolute after:bottom-[-4] after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transform after:bg-gray-600 after:transition-transform after:duration-300 hover:after:scale-x-100"
                 >
-                  javon@javonm.com
+                  {siteConfig.email}
                 </a>
               </div>
             </div>
@@ -62,7 +64,7 @@ export default function Contact() {
               <div className="flex gap-4">
                 Developed with Next.js and TailwindCSS
                 <a
-                  href="https://github.com/javonmcgilberry/javonmcgilberry.github.io"
+                  href={siteConfig.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-link hover:text-gray-600"
@@ -71,7 +73,9 @@ export default function Contact() {
                 </a>
               </div>
             </div>
-            <div className="self-end text-sm text-gray-500">©2024</div>
+            <div className="self-end text-sm text-gray-500">
+              ©{new Date().getFullYear()}
+            </div>
           </div>
         </div>
       </div>

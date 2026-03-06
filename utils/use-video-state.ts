@@ -1,34 +1,37 @@
-import { useRef, useCallback, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-// Let's be honest here, I needed some AI support for this one LOL.
-// Absolutely no shame here.
 export function useVideoState() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const reverseIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const reverseIntervalRef = useRef<ReturnType<typeof window.setInterval> | null>(
+    null,
+  );
 
   const clearReverseInterval = () => {
-    if (reverseIntervalRef.current) {
-      clearInterval(reverseIntervalRef.current);
-      reverseIntervalRef.current = null;
+    if (!reverseIntervalRef.current) {
+      return;
     }
+
+    window.clearInterval(reverseIntervalRef.current);
+    reverseIntervalRef.current = null;
   };
 
   useEffect(() => {
     return () => clearReverseInterval();
   }, []);
 
-  const playReverse = useCallback(() => {
-    if (!videoRef.current) return;
-    const video = videoRef.current;
-    const fps = 30; // Assuming 30fps video
-    const interval = 1000 / fps; // ~33.33ms per frame
+  const playReverse = () => {
+    if (!videoRef.current) {
+      return;
+    }
 
-    // Start from current position
+    const video = videoRef.current;
+    const fps = 30;
+    const interval = 1000 / fps;
     let currentTime = video.currentTime;
 
     clearReverseInterval();
 
-    reverseIntervalRef.current = setInterval(() => {
+    reverseIntervalRef.current = window.setInterval(() => {
       if (currentTime <= 0) {
         clearReverseInterval();
         video.classList.remove("opacity-100");
@@ -36,31 +39,35 @@ export function useVideoState() {
         return;
       }
 
-      currentTime -= interval / 1000; // Convert ms to seconds
+      currentTime -= interval / 1000;
       video.currentTime = Math.max(0, currentTime);
     }, interval);
-  }, []);
+  };
 
-  const toggleVideoState = useCallback(
-    (isPlaying: boolean) => {
-      if (!videoRef.current) return;
-      const video = videoRef.current;
+  const toggleVideoState = (isPlaying: boolean) => {
+    if (!videoRef.current) {
+      return;
+    }
 
-      clearReverseInterval();
+    const video = videoRef.current;
 
-      if (isPlaying) {
-        video.classList.remove("opacity-0");
-        video.classList.add("opacity-100");
-        video.currentTime = 0;
-        video.playbackRate = 1;
-        video.play();
-      } else {
-        video.pause();
-        playReverse();
-      }
-    },
-    [playReverse],
-  );
+    clearReverseInterval();
+
+    if (isPlaying) {
+      video.classList.remove("opacity-0");
+      video.classList.add("opacity-100");
+      video.currentTime = 0;
+      video.playbackRate = 1;
+      void video.play().catch(() => {
+        video.classList.remove("opacity-100");
+        video.classList.add("opacity-0");
+      });
+      return;
+    }
+
+    video.pause();
+    playReverse();
+  };
 
   return { videoRef, toggleVideoState };
 }

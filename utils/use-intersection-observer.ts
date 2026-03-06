@@ -8,43 +8,46 @@ interface UseIntersectionClassesProps {
   inactiveClass?: string;
 }
 
-export function useIntersectionClasses({
+export function useIntersectionClasses<T extends HTMLElement = HTMLElement>({
   threshold = 0,
   root = null,
   rootMargin = "0%",
   activeClass = "opacity-100",
   inactiveClass = "opacity-0",
 }: UseIntersectionClassesProps = {}) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const elementRef = useRef<any | null>(null);
+  const elementRef = useRef<T | null>(null);
 
   useEffect(() => {
+    const element = elementRef.current;
+
+    if (!element) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!elementRef.current) return;
+        if (!elementRef.current) {
+          return;
+        }
 
         if (entry.isIntersecting) {
           elementRef.current.classList.remove(inactiveClass);
           elementRef.current.classList.add(activeClass);
-        } else {
-          elementRef.current.classList.remove(activeClass);
-          elementRef.current.classList.add(inactiveClass);
+          return;
         }
+
+        elementRef.current.classList.remove(activeClass);
+        elementRef.current.classList.add(inactiveClass);
       },
       { threshold, root, rootMargin },
     );
 
-    const element = elementRef.current;
-    if (element) {
-      observer.observe(element);
-    }
+    observer.observe(element);
 
     return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
+      observer.disconnect();
     };
-  }, [threshold, root, rootMargin, activeClass, inactiveClass]);
+  }, [activeClass, inactiveClass, root, rootMargin, threshold]);
 
   return elementRef;
 }

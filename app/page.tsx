@@ -1,25 +1,31 @@
-import Header from "./components/header";
-import Hero from "./components/hero";
+import Contact from "./components/contact";
 import Details from "./components/details";
 import Divider from "./components/divider";
-import Contact from "./components/contact";
-export const metadata = {
-  title:
-    "Javon McGilberry | Senior Full Stack Software Engineer in Atlanta, GA",
-  description:
-    "Experienced Senior Full Stack Software Engineer based in Atlanta, Georgia. Specializing in JavaScript, TypeScript, React, Node.js, and GraphQL. Helping designers, creatives, and small businesses bring their digital visions to life. Available for freelance projects.",
-  image: "/graph-image.jpg",
-};
+import Header from "./components/header";
+import Hero from "./components/hero";
+import Reveal from "./components/reveal";
 
 export default function Home() {
   return (
-    <div>
-      <Header />
-      <Hero />
-      <Divider />
-      <Details />
-      <Divider />
-      <Contact />
-    </div>
+    <main>
+      <Reveal direction="down">
+        <Header />
+      </Reveal>
+      <Reveal className="relative">
+        <Hero />
+      </Reveal>
+      <Reveal direction="down">
+        <Divider />
+      </Reveal>
+      <Reveal direction="down">
+        <Details />
+      </Reveal>
+      <Reveal direction="down">
+        <Divider />
+      </Reveal>
+      <Reveal direction="down">
+        <Contact />
+      </Reveal>
+    </main>
   );
 }

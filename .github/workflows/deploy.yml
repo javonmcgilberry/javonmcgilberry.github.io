@@ -41,7 +41,7 @@ jobs:
             echo "runner=yarn" >> $GITHUB_OUTPUT
           elif [ -f "${{ github.workspace }}/pnpm-lock.yaml" ]; then
             echo "manager=pnpm" >> $GITHUB_OUTPUT
-            echo "command=install" >> $GITHUB_OUTPUT
+            echo "command=install --no-frozen-lockfile" >> $GITHUB_OUTPUT
             echo "runner=pnpm" >> $GITHUB_OUTPUT
           elif [ -f "${{ github.workspace }}/package-lock.json" ]; then
             echo "manager=npm" >> $GITHUB_OUTPUT
@@ -55,16 +55,16 @@ jobs:
       # Conditionally set up pnpm if pnpm is the detected manager
       - name: Setup pnpm
         if: steps.detect-package-manager.outputs.manager == 'pnpm'
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          version: 9.12.2 # Ensure this version is >=6.10.0 as required
+          version: 9.12.2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"
+          node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-          # For pnpm, caching is handled by pnpm/action-setup@v2
+          # For pnpm, caching is handled by pnpm/action-setup@v4
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

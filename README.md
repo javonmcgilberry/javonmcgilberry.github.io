@@ -1,67 +1,55 @@
-# javonwashere.github.io
+# javonmcgilberry.github.io
 
-Welcome to my portfolio website! This site serves as a showcase of my skills and projects as a Senior Full Stack Software Engineer based in Atlanta, Georgia. It's built with modern technologies to demonstrate my ability to create responsive, dynamic, and user-friendly applications.
+This is my personal portfolio site. I built it to present my work as a Senior Full Stack Software Engineer, share a bit of my background, and give the site itself enough personality to feel like a real piece of front-end work instead of a static resume page.
 
-## Features
+The project is intentionally small, but it gives me room to show responsive layout work, motion, interaction design, and a clean modern React/Next.js setup.
 
-- **Responsive Design**: Seamless experience across all devices.
-- **Interactive Components**: Built with React and TypeScript for dynamic user interactions.
-- **Smooth Animations**: Implemented using Intersection Observer API for performant animations.
-- **Detailed Experience Section**: Highlights my professional journey and achievements.
-- **Custom Tooltip Component**: Enhances user experience with interactive tooltips.
+## Stack
 
-## Technologies Used
+- [Next.js 16](https://nextjs.org/)
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS 3](https://tailwindcss.com/)
+- ESLint flat config
 
-- [Next.js](https://nextjs.org/) - React framework for server-side rendering and static site generation.
-- [React](https://reactjs.org/) - JavaScript library for building user interfaces.
-- [TypeScript](https://www.typescriptlang.org/) - Typed superset of JavaScript.
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework for styling.
-- [GraphQL](https://graphql.org/) - Query language for APIs.
-- [Node.js](https://nodejs.org/) - JavaScript runtime environment.
+## Highlights
 
-## Installation
+- Responsive single-page portfolio experience
+- Interactive hero section with pointer and touch support
+- App Router metadata, `robots.txt`, and `sitemap.xml`
+- Static export deployment to GitHub Pages
 
-1. **Clone the repository**
+## Requirements
 
-   ```bash
-   git clone https://github.com/javonwashere/javonwashere.github.io.git
-   ```
+- Node.js `20.9+`
+- pnpm `9.12.2`
 
-2. **Navigate to the project directory**
+If you use Corepack:
 
-   ```bash
-   cd javonwashere.github.io
-   ```
+```bash
+corepack enable
+corepack prepare pnpm@9.12.2 --activate
+```
 
-3. **Install dependencies**
+## Local Development
 
-   ```bash
-   pnpm install
-   ```
-
-4. **Run the development server**
-   ```bash
-   pnpm dev
-   ```
+```bash
+git clone https://github.com/javonmcgilberry/javonmcgilberry.github.io.git
+cd javonmcgilberry.github.io
+pnpm install
+pnpm dev
+```
 
 ## Scripts
 
-- `dev`: Runs the app in development mode.
-- `build`: Builds the app for production.
-- `start`: Starts the production server.
-- `lint`: Runs ESLint for code linting.
+- `pnpm dev`: Start the local development server
+- `pnpm build`: Build the static export into `out/`
+- `pnpm start`: Serve the generated `out/` directory locally
+- `pnpm lint`: Run ESLint with the flat config
+- `pnpm typecheck`: Run TypeScript without emitting files
 
-## Project Structure
+## Deployment
 
-- `app/components/`: Reusable React components like About, Experience, Tooltip, etc.
-- `utils/`: Utility functions and animation initializers.
-- `public/`: Static assets like images and resume PDF.
-- `styles/`: Global CSS files using Tailwind CSS.
-
-## Contributing
-
-Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements or suggestions.
-
-## License
-
-[MIT](LICENSE)
+- The app uses `output: "export"` in `next.config.mjs`
+- Static assets are served from the root domain at `https://javonmcgilberry.github.io`
+- GitHub Actions builds and publishes the `out/` directory to GitHub Pages
