@@ -1,8 +1,8 @@
 import React from "react";
 
 const primarySkills = [
-  "JavaScript",
   "TypeScript",
+  "JavaScript",
   "React",
   "Node.js",
   "GraphQL",
@@ -15,7 +15,7 @@ export default function About() {
       <div className="space-y-6 font-['Inter_Tight',sans-serif] text-2xl leading-[140%] text-[#262626]">
         <p>
           I&apos;m <strong>Javon McGilberry</strong>, a Senior Software Engineer
-          based in Atlanta, Georgia. With over <strong>7 years</strong> of
+          based in Atlanta, Georgia. With over <strong>9 years</strong> of
           experience in designing, developing, and optimizing web applications,
           I specialize in{" "}
           {primarySkills.map((skill, index) => (

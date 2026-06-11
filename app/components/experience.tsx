@@ -6,36 +6,43 @@ interface Experience {
     | `${string} ${number} - Present`;
 }
 
+// Titles and dates mirror resume/master.ts in the resume repo — the single
+// source of truth. Update there first, then here.
 const experiences: Experience[] = [
   {
-    title: "Senior Software Engineer, Frontend",
+    title: "Senior Software Engineer",
     company: "Webflow",
     period: "March 2025 - Present",
   },
   {
-    title: "Senior Frontend Software Engineer",
+    title: "Senior Software Engineer, Frontend",
     company: "Spotify (Contract)",
     period: "July 2024 - December 2024",
   },
   {
-    title: "Senior Fullstack Software Engineer",
+    title: "Senior Software Engineer, Fullstack",
     company: "Chief Inc.",
-    period: "November 2022 - Present",
+    period: "November 2022 - March 2025",
   },
   {
-    title: "Lead Frontend Software Engineer",
+    title: "Lead Frontend Engineer",
     company: "FIS Global (Contract)",
     period: "April 2022 - November 2022",
   },
   {
-    title: "Senior Frontend Software Engineer",
+    title: "Senior Frontend Engineer",
     company: "FIS Global (Contract)",
-    period: "July 2021 - March 2022",
+    period: "July 2021 - April 2022",
   },
   {
     title: "Fullstack Software Engineer",
     company: "The Home Depot",
-    period: "February 2017 - February 2021",
+    period: "July 2018 - March 2021",
+  },
+  {
+    title: "Apprentice Software Engineer",
+    company: "The Home Depot",
+    period: "February 2017 - July 2018",
   },
 ];
 
