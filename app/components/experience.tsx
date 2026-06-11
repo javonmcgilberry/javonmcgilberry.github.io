@@ -6,7 +6,6 @@ interface Experience {
     | `${string} ${number} - Present`;
 }
 
-// Mirrors the master resume; titles and dates must match it exactly.
 const experiences: Experience[] = [
   {
     title: "Senior Software Engineer",
