@@ -6,8 +6,7 @@ interface Experience {
     | `${string} ${number} - Present`;
 }
 
-// Titles and dates mirror resume/master.ts in the resume repo — the single
-// source of truth. Update there first, then here.
+// Mirrors the master resume; titles and dates must match it exactly.
 const experiences: Experience[] = [
   {
     title: "Senior Software Engineer",
