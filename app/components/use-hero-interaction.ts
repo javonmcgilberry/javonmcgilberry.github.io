@@ -17,38 +17,24 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
-function getDesktopOffset(
+function getDragOffset(
   event: PointerEvent<HTMLDivElement>,
-  container: HTMLDivElement,
-): Point {
-  const rect = container.getBoundingClientRect();
-  const x = (event.clientX - rect.left) / rect.width;
-  const y = (event.clientY - rect.top) / rect.height;
-
-  return {
-    x: (x - 0.5) * DESKTOP_MAX_MOVE * 2,
-    y: (y - 0.5) * DESKTOP_MAX_MOVE * 2,
-  };
-}
-
-function getTouchOffset(
-  event: PointerEvent<HTMLDivElement>,
-  startPoint: Point,
+  start: Point,
+  maxMove: number,
 ): Point {
   return {
-    x: clamp(event.clientX - startPoint.x, -TOUCH_MAX_MOVE, TOUCH_MAX_MOVE),
-    y: clamp(event.clientY - startPoint.y, -TOUCH_MAX_MOVE, TOUCH_MAX_MOVE),
+    x: clamp(event.clientX - start.x, -maxMove, maxMove),
+    y: clamp(event.clientY - start.y, -maxMove, maxMove),
   };
 }
 
 export function useHeroInteraction() {
   const { videoRef, toggleVideoState } = useVideoState();
-  const sectionRef = useRef<HTMLDivElement | null>(null);
   const heroImageRef = useRef<HTMLDivElement | null>(null);
   const textRef = useRef<HTMLHeadingElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const startPointRef = useRef<Point>(INITIAL_POINT);
-  const lastPointerTypeRef = useRef("mouse");
+  const draggingRef = useRef(false);
   const canHoverRef = useRef(false);
   const isHoveringRef = useRef(false);
 
@@ -70,8 +56,19 @@ export function useHeroInteraction() {
     }
   };
 
-  const resetTransforms = () => {
-    applyTransforms(INITIAL_POINT);
+  // The class transition (300ms ease-out) animates the snap-back on release,
+  // but would lag the image behind the pointer mid-drag, so it's suspended
+  // while dragging.
+  const setTransitionsEnabled = (enabled: boolean) => {
+    const value = enabled ? "" : "none";
+
+    if (heroImageRef.current) {
+      heroImageRef.current.style.transition = value;
+    }
+
+    if (textRef.current) {
+      textRef.current.style.transition = value;
+    }
   };
 
   const updateTooltipPosition = (clientX: number, clientY: number) => {
@@ -84,17 +81,19 @@ export function useHeroInteraction() {
   };
 
   const endInteraction = (pointerType: string) => {
+    draggingRef.current = false;
     setIsDragging(false);
     toggleVideoState(false);
-    resetTransforms();
+    setTransitionsEnabled(true);
+    applyTransforms(INITIAL_POINT);
     setIsTooltipVisible(
       pointerType === "mouse" && canHoverRef.current && isHoveringRef.current,
     );
   };
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    lastPointerTypeRef.current = event.pointerType;
     startPointRef.current = { x: event.clientX, y: event.clientY };
+    draggingRef.current = true;
 
     setIsDragging(true);
     setIsTooltipVisible(false);
@@ -104,32 +103,23 @@ export function useHeroInteraction() {
     }
 
     event.currentTarget.setPointerCapture(event.pointerId);
+    setTransitionsEnabled(false);
     toggleVideoState(true);
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    lastPointerTypeRef.current = event.pointerType;
-
     if (event.pointerType === "mouse" && canHoverRef.current) {
       updateTooltipPosition(event.clientX, event.clientY);
     }
 
-    if (!isDragging) {
+    if (!draggingRef.current) {
       return;
     }
 
-    if (event.pointerType === "mouse") {
-      const section = sectionRef.current;
+    const maxMove =
+      event.pointerType === "mouse" ? DESKTOP_MAX_MOVE : TOUCH_MAX_MOVE;
 
-      if (!section) {
-        return;
-      }
-
-      applyTransforms(getDesktopOffset(event, section));
-      return;
-    }
-
-    applyTransforms(getTouchOffset(event, startPointRef.current));
+    applyTransforms(getDragOffset(event, startPointRef.current, maxMove));
   };
 
   const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
@@ -141,10 +131,13 @@ export function useHeroInteraction() {
   };
 
   const handlePointerEnter = (event: PointerEvent<HTMLDivElement>) => {
-    lastPointerTypeRef.current = event.pointerType;
     isHoveringRef.current = true;
 
-    if (event.pointerType !== "mouse" || !canHoverRef.current || isDragging) {
+    if (
+      event.pointerType !== "mouse" ||
+      !canHoverRef.current ||
+      draggingRef.current
+    ) {
       return;
     }
 
@@ -152,24 +145,19 @@ export function useHeroInteraction() {
     setIsTooltipVisible(true);
   };
 
+  // Pointer capture keeps events on the section mid-drag, so leave only ever
+  // fires while idle; up/cancel handle every dragging exit.
   const handlePointerLeave = () => {
     isHoveringRef.current = false;
-
-    if (isDragging) {
-      endInteraction(lastPointerTypeRef.current);
-      return;
-    }
-
     setIsTooltipVisible(false);
   };
 
-  const handlePointerCancel = () => {
-    endInteraction(lastPointerTypeRef.current);
+  const handlePointerCancel = (event: PointerEvent<HTMLDivElement>) => {
+    endInteraction(event.pointerType);
   };
 
   return {
     videoRef,
-    sectionRef,
     heroImageRef,
     textRef,
     tooltipRef,

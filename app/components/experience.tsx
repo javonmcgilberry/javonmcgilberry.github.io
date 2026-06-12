@@ -1,16 +1,20 @@
+type Month = 'January' | 'February' | 'March' | 'April' | 'May' | 'June' | 'July' | 'August' | 'September' | 'October' | 'November' | 'December';
+
+type Year = `${20}${number}`;
+
 interface Experience {
   title: string;
   company: string;
   period:
-    | `${string} ${number} - ${string} ${number}`
-    | `${string} ${number} - Present`;
+    | `${Month} ${Year} - ${Month} ${Year}`
+    | `${Month} ${Year} - Current`;
 }
 
 const experiences: Experience[] = [
   {
     title: "Senior Software Engineer",
     company: "Webflow",
-    period: "March 2025 - Present",
+    period: "March 2025 - Current",
   },
   {
     title: "Senior Software Engineer, Frontend",

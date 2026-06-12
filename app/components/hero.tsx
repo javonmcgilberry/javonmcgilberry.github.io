@@ -7,7 +7,6 @@ import { useHeroInteraction } from "./use-hero-interaction";
 export default function Hero() {
   const {
     videoRef,
-    sectionRef,
     heroImageRef,
     textRef,
     tooltipRef,
@@ -26,7 +25,6 @@ export default function Hero() {
     <section className="relative">
       <div className="container mx-auto">
         <div
-          ref={sectionRef}
           className={`hero-section relative grid select-none grid-cols-1 gap-4 touch-none md:grid-cols-2 md:gap-8 md:touch-auto ${
             isDragging ? "md:cursor-grabbing" : "md:cursor-grab"
           }`}
